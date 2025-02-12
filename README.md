@@ -38,6 +38,48 @@ Explain how the code is not consistent or predictable, then provide an example i
 
 ### Response 2
 
+The code shown above isn't consistent nor predictable because the methods within the function has drect access to the friends array. This allows the friends array to manipulated using the `.addFriend()` method **AND** directly by doing `friendsManager.friends.push()`, which leaves the data vunerable to entering false data and more.
+
+```JavaScript
+// Improved friendsManager using closure
+const makeFriendsManager = () => {
+  const friends = [];
+
+  const friendMaker = {
+    addFriend(newFriend) {
+      if (typeof newFriend !== 'string') return;
+      friends.push(newFriend);
+    },
+    printFriends() {
+      console.log(friends);
+    },
+  };
+
+  return friendMaker;
+};
+
+// Create a new instance of friendsManager
+const friendsManager = makeFriendsManager();
+
+// Test the functionality
+friendsManager.addFriend('daniel');
+friendsManager.addFriend('emmanuel');
+friendsManager.addFriend('alice');
+friendsManager.printFriends(); // output: ['daniel', 'emmanuel', 'alice']
+
+friendsManager.addFriend(true); // attempting to add a boolean to the array
+friendsManager.printFriends(); // output: ['daniel', 'emmanuel', 'alice']
+friendsManager.friends = []; // this won't affect the internal friends array
+friendsManager.printFriends(); // Output: ['daniel', 'emmanuel', 'alice']
+
+```
+
+The code above uses closure to ensure that the friends array cannot be accessed directly.
+
+- `makeFriendsManager` is a function that encapsulates the friends array and its manipulation methods (addFriend and printFriends) within an inner function, the `friendMaker` object.
+
+- Closure ensures that friends array is initialized in the outer funcction scope and only accessible through the methods provided (addFriend and printFriends), as references, preventing direct manipulation or access from outside the object.
+
 ## Prompt 3
 
 With OOP in JavaScript, it's possible to use factory functions to achieve encapsulation and re-use them to make objects that look alike. However, factory functions have drawbacks and we often use classes instead.
