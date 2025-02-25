@@ -15,6 +15,39 @@ Imagine you are teaching a friend about OOP. They mainly want to understand what
 
 ### Response 1
 
+Encapsulation is the building of classes using things like properties and methods. You can restrict access to these using private and public modifiers so you can better control when these get updated or changed. Major goals would be the protection of the object to maintain predictability.
+
+A code example:
+
+```js
+class BankAccount {
+  #balance;
+
+  constructor(owner, balance = 0) {
+    this.owner = owner; //public
+    this.#balance = balance; //private
+  }
+
+  deposit(amount) {
+    this.#balance += amount;
+  }
+
+  withdraw(amount) {
+    if (amount > 0 && amount <= this.#balance) {
+      this.#balance -= amount;
+    } else {
+      console.log('Invalid');
+    }
+  }
+
+  getBalance() {
+    return this.#balance;
+  }
+}
+```
+
+So in this code example, we have 3 methods with one private property called balance marked with #. The only way to access the `#balance` is to use these methods rather than public accessibility where the access is open and a user can update.
+
 ## Prompt 2
 
 The following `friendsManager` object is an example of an interface that is **NOT** consistent and predictable:
