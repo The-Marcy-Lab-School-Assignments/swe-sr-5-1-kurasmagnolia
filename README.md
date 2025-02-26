@@ -121,6 +121,8 @@ How would you explain to a budding developer what the drawbacks of using factory
 
 ### Response 3
 
+Classes offer a standardized way to define objects and hierarchy. Factory functions lack support for direct inheritance leaving you to handle prototype chains manually. Additionally, factory functions don't have ties to methods of the structure of objects unlike classes, which do and can maintain clear and specific behaviors. Factory functions are also hard to read when they are in larger complex scripts.
+
 ## Prompt 4
 
 Do some research on the history of when / how classes were introduced into JavaScript and share your findings. Your response should include:
